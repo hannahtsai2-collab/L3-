@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《談遇見更好的自己》寫作架構與綱要填空</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: #f0fdfa;
+      color: #134e4a;
+    }
+    
+    .drop-target {
+      min-height: 48px;
+      transition: all 0.2s ease;
+    }
+
+    .drop-target.drag-over {
+      background-color: #ccfbf1;
+      border-color: #0d9488;
+      transform: scale(1.01);
+    }
+
+    .tag-card {
+      cursor: grab;
+      user-select: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .tag-card:active {
+      cursor: grabbing;
+      transform: scale(1.03);
+    }
+
+    .shake {
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f0fdfa;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #99f6e4;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0d9488;
+    }
+  </style>
+</head>
+<body class="h-screen w-screen overflow-hidden flex flex-col bg-teal-50/50">
+
+  <!-- Header -->
+  <header class="bg-teal-700 text-white py-3 px-6 shadow-md flex justify-between items-center shrink-0">
+    <div>
+      <h1 class="text-xl md:text-2xl font-bold tracking-wide flex items-center gap-2">
+        <span>📖</span> 《談遇見更好的自己》寫作架構與綱要填空
+      </h1>
+      <p class="text-xs md:text-sm text-teal-100 mt-0.5">
+        拖曳架構標籤至對應自然段，並填入綱要關鍵字（第 6、7 段開放自由填答）
+      </p>
+    </div>
+  </header>
+
+  <!-- Main Workspace Container -->
+  <main class="flex-1 p-3 md:p-4 flex flex-col gap-3 overflow-hidden max-w-7xl mx-auto w-full">
+
+    <!-- Top Pool: Essay Structure Cards -->
+    <section class="bg-white rounded-xl p-3 shadow-sm border border-teal-100 shrink-0">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="text-sm font-bold text-teal-900 flex items-center gap-1.5">
+          <span>🏷️</span> 議論文四大寫作架構標籤卡（可點擊或拖曳配對）
+        </h2>
+        <span class="text-xs text-teal-600">放置入格子後仍可隨時拖曳移動或點擊取下</span>
+      </div>
+      <div id="tag-pool" class="flex flex-wrap gap-2.5 min-h-[44px] items-center p-1 bg-teal-50/60 rounded-lg border border-dashed border-teal-200">
+        <!-- Tags injected and shuffled via JS -->
+      </div>
+    </section>
+
+    <!-- Paragraph Cards Workspace -->
+    <section class="flex-1 overflow-y-auto pr-1 space-y-3" id="paragraph-container">
+
+      <!-- Paragraph 1 -->
+      <div class="paragraph-block bg-white rounded-xl p-3.5 shadow-sm border border-teal-100 flex flex-col md:flex-row gap-3 items-start md:items-center" data-block-id="p1">
+        <div class="w-full md:w-48 shrink-0 flex flex-col gap-1">
+          <span class="inline-block bg-teal-100 text-teal-800 text-xs font-bold px-2.5 py-1 rounded-md w-max">
+            自然段一
+          </span>
+          <div class="drop-target border-2 border-dashed border-teal-300 rounded-lg p-1 bg-teal-50/30 flex items-center justify-center text-xs text-teal-500 font-medium" data-target-tag="提出論點">
+            <span class="placeholder-text">拖曳或選取架構卡至此</span>
+          </div>
+        </div>
+        <div class="flex-1 text-sm leading-relaxed text-teal-950 font-medium">
+          <span class="text-teal-700 font-bold">綱要填空：</span>
+          只要願意嘗試，多做多學，日積月累，就能遇見
+          <input type="text" data-answer="更好的自己" class="key-input mx-1 px-2 py-1 border-b-2 border-teal-400 focus:border-teal-600 focus:bg-teal-50 outline-none rounded text-center font-bold text-teal-800 w-36 transition-colors" placeholder="請輸入關鍵字">。
+        </div>
+      </div>
+
+      <!-- Paragraph 2 & 3 -->
+      <div class="paragraph-block bg-white rounded-xl p-3.5 shadow-sm border border-teal-100 flex flex-col md:flex-row gap-3 items-start md:items-center" data-block-id="p23">
+        <div class="w-full md:w-48 shrink-0 flex flex-col gap-1">
+          <span class="inline-block bg-teal-100 text-teal-800 text-xs font-bold px-2.5 py-1 rounded-md w-max">
+            自然段二、三
+          </span>
+          <div class="drop-target border-2 border-dashed border-teal-300 rounded-lg p-1 bg-teal-50/30 flex items-center justify-center text-xs text-teal-500 font-medium" data-target-tag="舉出論據（正例）">
+            <span class="placeholder-text">拖曳或選取架構卡至此</span>
+          </div>
+        </div>
+        <div class="flex-1 text-sm leading-relaxed text-teal-950 font-medium">
+          <span class="text-teal-700 font-bold">綱要填空：</span>
+          （正例）嚴長壽提出
+          <input type="text" data-answer="垃圾桶" class="key-input mx-1 px-2 py-1 border-b-2 border-teal-400 focus:border-teal-600 focus:bg-teal-50 outline-none rounded text-center font-bold text-teal-800 w-28 transition-colors" placeholder="填入關鍵字">哲學。<br class="hidden md:inline">
+          小結論：
+          <input type="text" data-answer="多做多得" class="key-input mx-1 px-2 py-1 border-b-2 border-teal-400 focus:border-teal-600 focus:bg-teal-50 outline-none rounded text-center font-bold text-teal-800 w-28 transition-colors" placeholder="填入關鍵字">的心態，激發潛能，看見自己更多的可能。
+        </div>
+      </div>
+
+      <!-- Paragraph 4 & 5 -->
+      <div class="paragraph-block bg-white rounded-xl p-3.5 shadow-sm border border-teal-100 flex flex-col md:flex-row gap-3 items-start md:items-center" data-block-id="p45">
+        <div class="w-full md:w-48 shrink-0 flex flex-col gap-1">
+          <span class="inline-block bg-teal-100 text-teal-800 text-xs font-bold px-2.5 py-1 rounded-md w-max">
+            自然段四、五
+          </span>
+          <div class="drop-target border-2 border-dashed border-teal-300 rounded-lg p-1 bg-teal-50/30 flex items-center justify-center text-xs text-teal-500 font-medium" data-target-tag="舉出論據（反例）">
+            <span class="placeholder-text">拖曳或選取架構卡至此</span>
+          </div>
+        </div>
+        <div class="flex-1 text-sm leading-relaxed text-teal-950 font-medium">
+          <span class="text-teal-700 font-bold">綱要填空：</span>
+          （反例）神童
+          <input type="text" data-answer="方仲永" class="key-input mx-1 px-2 py-1 border-b-2 border-teal-400 focus:border-teal-600 focus:bg-teal-50 outline-none rounded text-center font-bold text-teal-800 w-28 transition-colors" placeholder="填入關鍵字">放棄學習，多年後才能和普通人無異。<br class="hidden md:inline">
+          小結論：方仲永欠缺的是
+          <input type="text" data-answer="自我砥礪與持續成長的機會" class="key-input mx-1 px-2 py-1 border-b-2 border-teal-400 focus:border-teal-600 focus:bg-teal-50 outline-none rounded text-center font-bold text-teal-800 w-60 transition-colors" placeholder="請填入關鍵文句">。
+        </div>
+      </div>
+
+      <!-- Paragraph 6 (Free Answer, Clean Inputs) -->
+      <div class="paragraph-block bg-white rounded-xl p-3.5 shadow-sm border border-teal-100 flex flex-col md:flex-row gap-3 items-start md:items-center" data-block-id="p6">
+        <div class="w-full md:w-48 shrink-0 flex flex-col gap-1">
+          <span class="inline-block bg-teal-100 text-teal-800 text-xs font-bold px-2.5 py-1 rounded-md w-max">
+            自然段六
+          </span>
+          <div class="drop-target border-2 border-dashed border-teal-300 rounded-lg p-1 bg-teal-50/30 flex items-center justify-center text-xs text-teal-500 font-medium" data-target-tag="提出方法">
+            <span class="placeholder-text">拖曳或選取架構卡至此</span>
+          </div>
+        </div>
+        <div class="flex-1 text-sm leading-relaxed text-teal-950 font-medium w-full">
+          <div class="text-teal-700 font-bold mb-1">綱要填空（開放自由填答）：遇見更好的自己之三個做法：</div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-1">
+            <div class="flex items-center gap-1 bg-teal-50/60 p-1.5 rounded-md border border-teal-100">
+              <span class="text-teal-600 font-bold text-xs shrink-0">1.</span>
+              <input type="text" data-free="true" id="p6-m1" class="key-input w-full px-2 py-1 bg-white border border-teal-300 focus:border-teal-600 outline-none rounded text-xs text-teal-900" placeholder="做法一">
+            </div>
+            <div class="flex items-center gap-1 bg-teal-50/60 p-1.5 rounded-md border border-teal-100">
+              <span class="text-teal-600 font-bold text-xs shrink-0">2.</span>
+              <input type="text" data-free="true" id="p6-m2" class="key-input w-full px-2 py-1 bg-white border border-teal-300 focus:border-teal-600 outline-none rounded text-xs text-teal-900" placeholder="做法二">
+            </div>
+            <div class="flex items-center gap-1 bg-teal-50/60 p-1.5 rounded-md border border-teal-100">
+              <span class="text-teal-600 font-bold text-xs shrink-0">3.</span>
+              <input type="text" data-free="true" id="p6-m3" class="key-input w-full px-2 py-1 bg-white border border-teal-300 focus:border-teal-600 outline-none rounded text-xs text-teal-900" placeholder="做法三">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paragraph 7 (Free Answer, Clean Inputs) -->
+      <div class="paragraph-block bg-white rounded-xl p-3.5 shadow-sm border border-teal-100 flex flex-col md:flex-row gap-3 items-start md:items-center" data-block-id="p7">
+        <div class="w-full md:w-48 shrink-0 flex flex-col gap-1">
+          <span class="inline-block bg-teal-100 text-teal-800 text-xs font-bold px-2.5 py-1 rounded-md w-max">
+            自然段七
+          </span>
+          <div class="drop-target border-2 border-dashed border-teal-300 rounded-lg p-1 bg-teal-50/30 flex items-center justify-center text-xs text-teal-500 font-medium" data-target-tag="重申論點">
+            <span class="placeholder-text">拖曳或選取架構卡至此</span>
+          </div>
+        </div>
+        <div class="flex-1 text-sm leading-relaxed text-teal-950 font-medium w-full">
+          <div class="text-teal-700 font-bold mb-1">綱要填空（開放自由填答）：結論重申</div>
+          <input type="text" data-free="true" id="p7-summary" class="key-input w-full px-2 py-1 bg-white border border-teal-300 focus:border-teal-600 outline-none rounded text-xs text-teal-900" placeholder="請填寫結論">
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Submit Button Action Bar -->
+    <div class="shrink-0 flex justify-center py-1">
+      <button id="submit-btn" class="w-full md:w-80 py-3 bg-teal-600 hover:bg-teal-700 active:scale-95 text-white font-bold text-base rounded-xl shadow-lg transition-all duration-150 flex items-center justify-center gap-2">
+        <span>🚀</span> 提交答案與驗證
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Success Modal with Dynamic Overview Card -->
+  <div id="success-modal" class="fixed inset-0 bg-teal-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-white rounded-2xl p-5 md:p-6 max-w-2xl w-full shadow-2xl border border-teal-100 flex flex-col max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300">
+      
+      <div class="text-center mb-4">
+        <div class="inline-flex items-center justify-center w-14 h-14 bg-teal-100 text-teal-700 rounded-full text-3xl mb-2 shadow-inner">
+          🏆
+        </div>
+        <h3 class="text-xl md:text-2xl font-bold text-teal-900">完成課文邏輯建構！</h3>
+        <p class="text-xs md:text-sm text-teal-600 mt-1">恭喜！你已成功完成本課議論文寫作架構與綱要填空！</p>
+      </div>
+
+      <!-- Dynamic Linked Overview Card -->
+      <div class="bg-teal-50/80 rounded-xl p-4 border border-teal-200 text-teal-950 space-y-3 my-2 text-xs md:text-sm">
+        <div class="flex items-center justify-between border-b border-teal-200 pb-2">
+          <span class="font-bold text-teal-800 text-sm md:text-base flex items-center gap-1.5">
+            <span>📚</span> 課文邏輯結構全覽卡
+          </span>
+          <span class="text-[10px] bg-teal-200 text-teal-800 px-2 py-0.5 rounded font-semibold">個人化整合</span>
+        </div>
+
+        <ul class="space-y-2.5 leading-relaxed">
+          <li class="bg-white p-2.5 rounded-lg border border-teal-100 shadow-2xs">
+            <strong class="text-teal-700">1. 自然段一［提出論點］：</strong>只要願意嘗試，多做多學，日積月累就能遇見更好的自己。
+          </li>
+          <li class="bg-white p-2.5 rounded-lg border border-teal-100 shadow-2xs">
+            <strong class="text-teal-700">2. 自然段二、三［舉出論據 - 正例］：</strong>嚴長壽提出「垃圾桶哲學」，以多做多得的心態激發潛能，看見自己更多的可能。
+          </li>
+          <li class="bg-white p-2.5 rounded-lg border border-teal-100 shadow-2xs">
+            <strong class="text-teal-700">3. 自然段四、五［舉出論據 - 反例］：</strong>神童方仲永放棄學習，說明欠缺自我砥礪與持續成長的機會。
+          </li>
+          <li class="bg-white p-2.5 rounded-lg border border-teal-100 shadow-2xs">
+            <strong class="text-teal-700">4. 自然段六［提出方法］—— 遇見更好的自己之三個做法：</strong>
+            <div class="mt-1 pl-3 space-y-1 text-teal-900 font-medium border-l-2 border-teal-400">
+              <p>• 做法一：<span id="card-m1" class="text-teal-800 font-bold"></span></p>
+              <p>• 做法二：<span id="card-m2" class="text-teal-800 font-bold"></span></p>
+              <p>• 做法三：<span id="card-m3" class="text-teal-800 font-bold"></span></p>
+            </div>
+          </li>
+          <li class="bg-white p-2.5 rounded-lg border border-teal-100 shadow-2xs">
+            <strong class="text-teal-700">5. 自然段七［重申論點］：</strong>
+            <span id="card-summary" class="text-teal-900 font-bold"></span>
+          </li>
+        </ul>
+      </div>
+
+      <button id="modal-close-btn" class="mt-4 w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl shadow transition-colors text-center">
+        重新練習 / 複習本課
+      </button>
+
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // Structure Tags Definition
+    const TAG_DATA = [
+      { id: 'tag-1', text: '提出論點' },
+      { id: 'tag-2', text: '舉出論據（正例）' },
+      { id: 'tag-3', text: '舉出論據（反例）' },
+      { id: 'tag-4', text: '提出方法' },
+      { id: 'tag-5', text: '重申論點' }
+    ];
+
+    // Web Audio Synthesizer for SFX
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function playSound(type) {
+      try {
+        if (!audioCtx) audioCtx = new AudioCtx();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+
+        if (type === 'correct') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, now); // C5
+          osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.12); // E5
+          osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.25); // G5
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'error') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.linearRampToValueAtTime(140, now + 0.25);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        }
+      } catch (e) {
+        // Fallback silently if audio context unavailable
+      }
+    }
+
+    // Utility: Shuffle Array
+    function shuffle(array) {
+      let currentIndex = array.length, randomIndex;
+      const newArray = [...array];
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [newArray[currentIndex], newArray[randomIndex]] = [newArray[randomIndex], newArray[currentIndex]];
+      }
+      return newArray;
+    }
+
+    // Render Structure Tag Cards in Random Order
+    const tagPoolEl = document.getElementById('tag-pool');
+
+    function createTagElement(tag) {
+      const card = document.createElement('div');
+      card.className = 'tag-card bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-sm border border-teal-500 cursor-grab flex items-center justify-center gap-1';
+      card.draggable = true;
+      card.dataset.tagId = tag.id;
+      card.dataset.text = tag.text;
+      card.innerHTML = `<span>📌</span> <span>${tag.text}</span>`;
+
+      // Drag Events
+      card.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', tag.text);
+        e.dataTransfer.setData('tag-id', tag.id);
+        card.classList.add('opacity-40');
+      });
+
+      card.addEventListener('dragend', () => {
+        card.classList.remove('opacity-40');
+      });
+
+      // Tap / Click placing
+      card.addEventListener('click', (e) => {
+        if (card.parentElement.classList.contains('drop-target')) {
+          // Click inside target -> return to tag pool
+          tagPoolEl.appendChild(card);
+          card.onclick = null;
+        } else {
+          // Click in pool -> place in first available target slot
+          const emptyTargets = Array.from(document.querySelectorAll('.drop-target')).filter(t => !t.querySelector('.tag-card'));
+          if (emptyTargets.length > 0) {
+            placeTagInTarget(card, emptyTargets[0]);
+          }
+        }
+      });
+
+      return card;
+    }
+
+    function renderTagPool() {
+      tagPoolEl.innerHTML = '';
+      const shuffled = shuffle(TAG_DATA);
+      shuffled.forEach(tag => {
+        tagPoolEl.appendChild(createTagElement(tag));
+      });
+    }
+
+    // Target Slots Setup
+    function setupDropTargets() {
+      const targets = document.querySelectorAll('.drop-target');
+
+      targets.forEach(target => {
+        target.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          target.classList.add('drag-over');
+        });
+
+        target.addEventListener('dragleave', () => {
+          target.classList.remove('drag-over');
+        });
+
+        target.addEventListener('drop', (e) => {
+          e.preventDefault();
+          target.classList.remove('drag-over');
+          
+          const tagId = e.dataTransfer.getData('tag-id');
+          if (tagId) {
+            const card = document.querySelector(`[data-tag-id="${tagId}"]`);
+            if (card) {
+              placeTagInTarget(card, target);
+            }
+          }
+        });
+      });
+    }
+
+    function placeTagInTarget(card, target) {
+      // Return previous card if present
+      const existingCard = target.querySelector('.tag-card');
+      if (existingCard && existingCard !== card) {
+        tagPoolEl.appendChild(existingCard);
+      }
+
+      // Hide placeholder text
+      const placeholder = target.querySelector('.placeholder-text');
+      if (placeholder) placeholder.style.display = 'none';
+
+      // Append card into target
+      target.appendChild(card);
+      target.classList.add('bg-teal-100/50', 'border-teal-500');
+    }
+
+    // Submit Validation Handler
+    const submitBtn = document.getElementById('submit-btn');
+    const modal = document.getElementById('success-modal');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+
+    submitBtn.addEventListener('click', () => {
+      let allCorrect = true;
+
+      // 1. Structure Match Validation
+      const blocks = document.querySelectorAll('.paragraph-block');
+      blocks.forEach(block => {
+        const target = block.querySelector('.drop-target');
+        const expectedTag = target.getAttribute('data-target-tag');
+        const placedCard = target.querySelector('.tag-card');
+
+        if (!placedCard || placedCard.dataset.text !== expectedTag) {
+          allCorrect = false;
+          block.classList.add('shake', 'border-red-400', 'bg-red-50/20');
+          setTimeout(() => {
+            block.classList.remove('shake');
+          }, 400);
+        } else {
+          block.classList.remove('border-red-400', 'bg-red-50/20');
+        }
+      });
+
+      // 2. Keyword Fill-in Validation
+      const inputs = document.querySelectorAll('.key-input');
+      inputs.forEach(input => {
+        const val = input.value.trim();
+        const isFree = input.dataset.free === 'true';
+
+        if (isFree) {
+          // Free response non-empty check
+          if (val === '') {
+            allCorrect = false;
+            input.classList.add('border-red-500', 'bg-red-50');
+          } else {
+            input.classList.remove('border-red-500', 'bg-red-50');
+          }
+        } else {
+          // Exact keyword answer check
+          const expected = input.dataset.answer;
+          if (val !== expected) {
+            allCorrect = false;
+            input.classList.add('border-red-500', 'bg-red-50');
+          } else {
+            input.classList.remove('border-red-500', 'bg-red-50');
+            input.classList.add('border-teal-500', 'bg-teal-50/50');
+          }
+        }
+      });
+
+      if (!allCorrect) {
+        playSound('error');
+      } else {
+        playSound('correct');
+
+        // Embed student's answers for Paragraphs 6 & 7 dynamically into Overview Card
+        document.getElementById('card-m1').textContent = document.getElementById('p6-m1').value.trim();
+        document.getElementById('card-m2').textContent = document.getElementById('p6-m2').value.trim();
+        document.getElementById('card-m3').textContent = document.getElementById('p6-m3').value.trim();
+        document.getElementById('card-summary').textContent = document.getElementById('p7-summary').value.trim();
+
+        // Show Success Modal
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.querySelector('div').classList.remove('scale-95');
+      }
+    });
+
+    modalCloseBtn.addEventListener('click', () => {
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.querySelector('div').classList.add('scale-95');
+      setTimeout(() => {
+        location.reload();
+      }, 300);
+    });
+
+    // Page Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      renderTagPool();
+      setupDropTargets();
+    });
+  </script>
+</body>
+</html>
